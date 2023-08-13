@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<hede>
+    <title>EJS Quiz</title>
+</hede>
+<html>
+<body>
+<form  action="/" method="post">
+    <h1>Rate Skills</h1>
+    <% let sel=selected %>
+<% for(let val in skill){%>
+   <% let v=skill.sel %>
+
+   <% for(let vv in v) {%>
+
+
+<% if(val==sel){%>
+    <%=val %>"<input type="texxt" value="<%=vv %>"
+
+<% }  %>
+
+<% }  %>
+
+
+
+<% }  %>
+
+
+
+</form>
+
+</body>
+
+</html>
