@@ -37,5 +37,5 @@ res.send("test");
 
 
 var server = app.listen(5000, function () {
-    console.log('Server is running..');
+    console.log('Server is running');
 });
