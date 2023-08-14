@@ -12,7 +12,7 @@ var login=require('./DBConnection/auth')
 var reg=require('./Routes/Register')
 var add=require('./Routes/postitem')
 
-
+var load=require('./Routes/Loaditem')
 
 app.use('/Register' , reg);
 app.use('/auth' , login);
@@ -25,8 +25,11 @@ app.use('/postitem' , add);
 app.get('/', function (req, res) {
    
     // connect to your database
+  const resu=load.loaditem()
 
-  res.render('BidPost')
+  console.log(resu);
+ 
+ res.render('BidPost' , {item:resu} )
   //  res.sendFile ( path.join(__dirname ,  'views' ,"index.ejs" ));
     
 });

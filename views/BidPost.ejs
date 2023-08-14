@@ -25,7 +25,7 @@
         Item details
         <hr/>
         <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-3">
         <label for="category" class="form-label">Item Category</label>
          <select  class="form-control" name="category"  placeholder="select type">
             <option value="1">Cars</option>
@@ -47,14 +47,32 @@
         
         
         <label for="file" class="form-label">Picture</label>
-        <input type="file"name="street" class="form-control"  placeholder="Strret">
+        <input type="file"    name="file2"/>
      <button type="submit" class="btn btn-info">Post Item</button>
 
     </div>
       
-    <div class="col-sm-4">
-
         <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-6"> 
+                    
+        <input type="text" name="searchval" class="form-control"  placeholder="search Value">
+        
+                </div>
+                <div class="col-sm-6">
+             
+                    
+                    
+                    
+                    <button type="submit" class="btn btn-info">search</button>
+
+            <button type="submit"  name="edit" class="btn btn-info">Edit</button>
+            <button type="submit" class="btn btn-info">delete</button>
+                </div>
+            </div>
+           
+          
+           
             <table class="table"   style="width: 100%;">
                 <thead>
                   <tr>
@@ -66,9 +84,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  
-                 
-                
+                  <% for(let itm in item) {%>
+                 <tr>
+                    <td> <input type="radio" class="form-control" name="row" value="<%=itm %>" </td>
+                    <td><%=item[itm].Model %></td>
+                    <td><%=item[itm].Description %></td>
+                    <td><%=item[itm].InitialPist %></td>
+                 </tr>
+
+                 <% }%>
                 </tbody>
               </table>
     </div>

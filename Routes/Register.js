@@ -1,7 +1,7 @@
 var express =require('express')
 var register=express.Router(); 
 var upload=require('express-fileupload');
-
+  register.use(upload())
 
     var sql = require("mssql");
     register.use(express.json());
@@ -9,13 +9,15 @@ var upload=require('express-fileupload');
     
     var conf=require('./DBConnection/Connection')   ; 
 
-     register.use(upload())
+   
 
 
 
     register.post('/', function(req, res, next){
 
-      executeStoredProcedure(req) ;
+
+    //  res.render("/regster")
+     executeStoredProcedure(req) ;
 
 });
 async function executeStoredProcedure(req) {
@@ -26,8 +28,7 @@ async function executeStoredProcedure(req) {
     // Create a request object
     const request = pool.request();
     var fl=req.files;
-    // Add input parameters to the request
-    console.log(req.body.fname);
+  
    request.input('fname', sql.NVarChar(50),req.body.fname );
    request.input('mname', sql.NVarChar(50),req.body.mname );
    request.input('lname', sql.NVarChar(50),req.body.lname );

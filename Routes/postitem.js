@@ -14,12 +14,14 @@ var upload=require('express-fileupload');
 
 
     additem.post('/', function(req, res, next){
-
+    
+      console.log("photo")
+      console.log(req.files.data )
       //res.send("i am called")
-     executeStoredProcedure(req) ;
+      add_item(req) ;
 
 });
-async function executeStoredProcedure(req) {
+async function add_item(req) {
   try {
     const pool = await sql.connect(conf.config);
 
@@ -27,24 +29,24 @@ async function executeStoredProcedure(req) {
 
     // Create a request object
     const request = pool.request();
-    var fl=req.files;
+    var fln=req.files;
     // Add input parameters to the request
-    console.log(req.body.fname);
+    console.log("photo")
+    console.log(fln.data);
    request.input('category', sql.NVarChar(50),req.body.category );
    request.input('name', sql.NVarChar(50),req.body.name );
-   request.input('description', sql.NVarChar(50),req.body.description );
+   request.input('description', sql.NVarChar(50),req.body.Description );
    request.input('price', sql.NVarChar(50),req.body.InitialPrice );
+   request.input('photo', sql.VarBinary,req.files.data );
   
-   //request.input('photo', sql.VarBinary,fl.file.data );
-
-    // Call the stored procedure
+  
     const result = await request.execute('add_item');
     sql.close();
     console.log('Done succ', result);
   } catch (err) {
     console.error('Error executing stored procedure:', err);
   } finally {
-    // Close the connection pool
+  
     sql.close();
   }
 }
