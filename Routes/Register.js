@@ -1,5 +1,7 @@
 var express =require('express')
 var register=express.Router(); 
+var upload=require('express-fileupload');
+  register.use(upload())
 
     var sql = require("mssql");
     register.use(express.json());
@@ -7,38 +9,50 @@ var register=express.Router();
     
     var conf=require('./DBConnection/Connection')   ; 
 
+   
 
 
 
     register.post('/', function(req, res, next){
 
-  var user=req.body.fname; 
-  sql.connect(conf.config, function (err) {
+
+    //  res.render("/regster")
+     executeStoredProcedure(req) ;
+
+});
+async function executeStoredProcedure(req) {
+  try {
+    const pool = await sql.connect(conf.config);
+
     
-    if (err) console.log(err);
-    // create Request object
-    var request = new sql.Request();
-       
-    // query to the database and get the records
-let perinfo = "exec reg_user  @fname='" + req.body.fname  + "', @mname='" + req.body.mname   
- + "', @lname='" + req.body.lname +  "', @email='" + req.body.email +   "', @street='" + req.body.street +  "', @tel='" + req.body.tel + 
-  "', @username='" + req.body.username +  "', @password='" + req.body.password + "', @type='" + req.body.type  + "', @photo='" + req.body.photo +    "';";
+    // Create a request object
+    const request = pool.request();
+    var fl=req.files;
+  
+   request.input('fname', sql.NVarChar(50),req.body.fname );
+   request.input('mname', sql.NVarChar(50),req.body.mname );
+   request.input('lname', sql.NVarChar(50),req.body.lname );
+   request.input('email', sql.NVarChar(50),req.body.email );
+   request.input('street', sql.NVarChar(50),req.body.street );
+   request.input('tel', sql.NVarChar(50),req.body.tel );
+   request.input('username', sql.NVarChar(50),req.body.username );
+   request.input('password', sql.NVarChar(50),req.body.password );
+   request.input('type', sql.Int,req.body.type );
+   request.input('photo', sql.VarBinary,fl.file.data );
 
-    console.log( perinfo);
-    //request.query("select * from TblUser", function (err, recordset) {
-       request.query(perinfo , function (err,   recordset) {
-        if (err) {console.log(err) } 
-        else {
+    // Call the stored procedure
+    const result = await request.execute('reg_user');
 
-        }
+    console.log('Data Saved', result);
+  } catch (err) {
+    console.error('Error executing stored procedure:', err);
+  } finally {
+    // Close the connection pool
+    sql.close();
+  }
+}
 
-        // send records as a response
-        res.send(perinfo);
-        
-    });
-});
 
-});
 
 
 

@@ -6,7 +6,8 @@ var config = {
     password: '123',
     server: 'KOKI\\SQLEXPRESS', 
     database: 'BID' ,
-    trustServerCertificate: true
+    trustServerCertificate: true,
+    port:1433
 };
 
 // connect to your database

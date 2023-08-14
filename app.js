@@ -10,18 +10,31 @@ app.use(express.urlencoded({ extended: false }));
 var conf=require('./DBConnection/Connection')
 var login=require('./DBConnection/auth')
 var reg=require('./Routes/Register')
+var add=require('./Routes/postitem')
+
+var load=require('./Routes/Loaditem')
+
+app.use('/Register' , reg);
+app.use('/auth' , login);
+app.use('/postitem' , add);
+
+
 
     var sql = require("mssql");
 
 app.get('/', function (req, res) {
    
     // connect to your database
-    res.sendFile ( path.join(__dirname ,  'views' ,"Register.html" ));
+  const resu=load.loaditem()
+
+  console.log(resu);
+ 
+ res.render('BidPost' , {item:resu} )
+  //  res.sendFile ( path.join(__dirname ,  'views' ,"index.ejs" ));
     
 });
 
-app.use('/Register' , reg);
-app.use('/auth' , login);
+
 
 app.get('/login' , function(req, res,next){
 
@@ -32,10 +45,16 @@ app.get('/login' , function(req, res,next){
 
 app.post('/test' , function(req,res,next){
 
+
 res.send("test");
 });
 
 
+
+
+
+
+
 var server = app.listen(5000, function () {
-    console.log('Server is running..');
+    console.log('Server is running');
 });

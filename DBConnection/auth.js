@@ -14,9 +14,9 @@ var path = require("path");
     
     var conf=require('../Routes/DBConnection/Connection')   ; 
      
-    var photopar=require('./image')
+
     
-    var test=photopar("<Buffer 75 6e 64 65 66 69 6e 65 64>");
+   // var test=photopar("<Buffer 75 6e 64 65 66 69 6e 65 64>");
     login.post('/', function(req, res, next){
 
   var user=req.body.fname; 
@@ -40,12 +40,12 @@ var path = require("path");
   
         var resl=recordset.recordsets[0];
         var restest=resl[0];
-        console.log( restest);
+        console.log( restest.photo);
       
       if(restest){
-      //  res.send('/login')
+       res.render('disUserinfo', {result:restest})
       
-   res.sendFile(path.join(__dirname, "../views", "welcome.html"))
+   //res.sendFile(path.join(__dirname, "../views", "welcome.html"))
       }
       else{
      

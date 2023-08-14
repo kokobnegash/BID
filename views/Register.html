@@ -11,7 +11,7 @@
     <title>Hello, the world!</title>
   </head>
   <body>
-   <form action="/Register" method="post">
+   <form action="/Register" method="post"  enctype="multipart/form-data">
 
 
   
@@ -54,7 +54,7 @@
         <input type="text" name="password" class="form-control" placeholder="Password">
         <label for="lname" class="form-label">Conform Password</label>
         <input type="text"name="Cpassword" class="form-control"  placeholder="Confirm Password">
-        <input type="file" name="myFile" name="photo">
+        <input type="file" value="upload me "   name="file"/>
         <br/>   <br/>
          <button type="submit" class="btn btn-info">Register</button>
         
