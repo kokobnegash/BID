@@ -16,7 +16,7 @@ var upload=require('express-fileupload');
     additem.post('/', function(req, res, next){
     
       console.log("at post photo")
-      console.log(req.files.data )
+      console.log(req.files.file2.data)
       //res.send("i am called")
       add_item(req) ;
 
@@ -37,7 +37,7 @@ async function add_item(req) {
    request.input('name', sql.NVarChar(50),req.body.name );
    request.input('description', sql.NVarChar(50),req.body.Description );
    request.input('price', sql.NVarChar(50),req.body.InitialPrice );
-   request.input('photo', sql.VarBinary,req.files.data );
+   request.input('photo', sql.VarBinary,req.files.file2.data );
   
   
     const result = await request.execute('add_item');

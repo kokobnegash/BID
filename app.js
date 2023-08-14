@@ -11,6 +11,7 @@ var conf=require('./DBConnection/Connection')
 var login=require('./DBConnection/auth')
 var reg=require('./Routes/Register')
 var add=require('./Routes/postitem')
+var img=require('./Routes/LoadImage')
 
 var load=require('./Routes/Loaditem')
 
@@ -25,12 +26,13 @@ app.use('/postitem' , add);
 app.get('/', function (req, res) {
    
     // connect to your database
-  const resu=load.loaditem()
-
-  console.log(resu);
- 
- res.render('BidPost' , {item:resu} )
-  //  res.sendFile ( path.join(__dirname ,  'views' ,"index.ejs" ));
+ // const resu=load.loaditem()
+ const resu=img.loadImg()
+  console.log("inside")
+  console.log(img.loadImg());
+ res.render('index' , {item:img.loadImg()} )
+// res.render('BidPost' , {item:resu} )
+   // res.sendFile ( path.join(__dirname ,  'views' ,"Register.html" ));
     
 });
 
@@ -53,6 +55,7 @@ res.send("test");
 
 
 
+//console.log(img.loadImg());
 
 
 var server = app.listen(5000, function () {
