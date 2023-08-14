@@ -22,10 +22,7 @@ async function executeStoredProcedure(req) {
   try {
     const pool = await sql.connect(conf.config);
 
-    // Define the input parameters
-    const param1Value = 'parameter_value_1';
-    const param2Value = 'parameter_value_2';
-
+    
     // Create a request object
     const request = pool.request();
     var fl=req.files;
@@ -45,7 +42,7 @@ async function executeStoredProcedure(req) {
     // Call the stored procedure
     const result = await request.execute('reg_user');
 
-    console.log('Stored procedure executed successfully:', result);
+    console.log('Data Saved', result);
   } catch (err) {
     console.error('Error executing stored procedure:', err);
   } finally {
