@@ -30,7 +30,7 @@ async function add_item(req) {
     // Create a request object
     const request = pool.request();
     var fln=req.files;
-    // Add input parameters to the request
+
     console.log("photo")
     console.log(fln.data);
    request.input('category', sql.NVarChar(50),req.body.category );
