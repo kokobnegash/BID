@@ -15,7 +15,7 @@ var upload=require('express-fileupload');
 
     additem.post('/', function(req, res, next){
     
-      console.log("photo")
+      console.log("at post photo")
       console.log(req.files.data )
       //res.send("i am called")
       add_item(req) ;
