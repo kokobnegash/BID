@@ -11,7 +11,7 @@ var conf=require('./DBConnection/Connection')
 var login=require('./DBConnection/auth')
 var reg=require('./Routes/Register')
 var add=require('./Routes/postitem')
-var img=require('./Routes/LoadImage')
+var img=require('./Routes/Index')
 var bid=require('./Routes/addBid')
 
 var bidstory=require('./Routes/BIdStory')
