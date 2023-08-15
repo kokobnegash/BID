@@ -13,48 +13,41 @@
   <body>
    <form action="/procees" method="post">
 
-
+ <%- include('Navbar'); %>
   
    
-    <div class="jumbotron">
-        <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-4">
-          <%- include('Navbar'); %>
-            </div>
-            <div class="col-sm-3"></div>
-            <div class="col-sm-2"></div>
-        </div>
-            
-
+    
 </div>
 
- <div class="container" style="border: dotted;">
+ <div class="container" >
     <div class="row">
 <% for(let itm in item) {%>
      
-
-<div class="card" style="width: 18rem;" style="margin: 2%; float: left; ">
-    
-        <%  let pho=item[itm].image  %>
+    <div class="card" style="width: 18rem; margin: 2rem;">
+  <%  let pho=item[itm].image  %>
         <% const imageBase64 = pho.toString('base64') %>
         <% const dataUri = `data:image/jpeg;base64,${imageBase64}` %>
-
-   <div class="card-body">
-        <% let pr= Number.parseInt(item[itm].InitialPist)  %>
+   <% let pr= Number.parseInt(item[itm].InitialPist)  %>
+     Name : <h5 class="card-title bg-light" ><%=item[itm].Model %></h5>
+        Description   <p class="card-text"><%=item[itm].Description %>.</p>
+        <img class="card-img-top"  width="400px"  height="200px" src="<%=dataUri %>" alt="Card image cap">
+    
+        <div class="card-body">
         
-      <h5 class="card-title"><%=item[itm].Model %></h5>
-      <h5 class="card-title"><%=pr.toLocaleString("en-US") %></h5>
-      <h5 class="card-title"><%=item[itm].Description %></h5>
-      <h5 class="card-title"><%=item[itm].Itemid %></h5>
-     
-      <a href="/bid?itemid=<%=item[itm].Itemid  %>" class="btn btn-primary">BID</a>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Initial PRice</li>
+          <li class="list-group-item  bg-success"><%=pr.toLocaleString("en-US") %> $</li>
+          <li class="list-group-item"> BID Reference : <%=item[itm].Itemid %></li>
+        </ul>
+        <div class="card-body">
+          <a href="/bid?itemid=<%=item[itm].Itemid  %>" class="btn btn-primary">BID</a>
    
-    
-</div>         <img class="card-img-top"  width="400px"  height="200px" src="<%=dataUri %>" alt="Card image cap">
-    
+        </div>
+      </div>
 
-    </div>   <% } %>
+
+  <% } %>
   </div></div>
 </div>
    

@@ -2,11 +2,23 @@ var express =require('express')
 var login=express.Router(); 
 
 
+
 const ejs = require('ejs');
 
 var path = require("path");
  var status="log out"; 
 
+ const oneDay = 1000 * 60 * 60 * 24;
+ const cookieParser = require("cookie-parser");
+ const sessions = require('express-session');
+ login.use(sessions({
+     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+     saveUninitialized:true,
+     cookie: { maxAge: oneDay },
+     resave: false
+ }));
+ 
+ var session;
 //login.set('view engine', 'ejs');
     var sql = require("mssql");
    login.use(express.json());
@@ -16,10 +28,10 @@ var path = require("path");
      
 
     
-   // var test=photopar("<Buffer 75 6e 64 65 66 69 6e 65 64>");
+   
     login.post('/', function(req, res, next){
 
-  var user=req.body.fname; 
+
   sql.connect(conf.config, function (err) {
     
     if (err) console.log(err);
@@ -40,11 +52,13 @@ var path = require("path");
   
         var resl=recordset.recordsets[0];
         var restest=resl[0];
-        console.log( restest.photo);
-      
+        
       if(restest){
-       res.render('disUserinfo', {result:restest})
-      
+
+        session=req.session;
+        session.userid=2;
+      // res.render('disUserinfo', {result:restest})
+      res.send('/')
    //res.sendFile(path.join(__dirname, "../views", "welcome.html"))
       }
       else{

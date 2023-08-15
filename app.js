@@ -13,11 +13,22 @@ var reg=require('./Routes/Register')
 var add=require('./Routes/postitem')
 var img=require('./Routes/LoadImage')
 var bid=require('./Routes/addBid')
+
 var bidstory=require('./Routes/BIdStory')
 var seller=require('./Routes/sellerInfo')
+/// Coookies 
+const oneDay = 1000 * 60 * 60 * 24;
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
+app.use(sessions({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false
+}));
 
-
-
+var session;
+//////////////////////
 var load=require('./Routes/Loaditem')
 var loadsingle=require('./Routes/LoadSingleitem')
 
@@ -36,11 +47,35 @@ app.get('/', function (req, res) {
  const resu=img.loadImg()
  // console.log("inside")
  //console.log(img.loadImg());
+
+ session=req.session;
+    if(session.userid){
 res.render('index' , {item:img.loadImg()} )
+ }
+
+
+ else {
+
+    res.sendFile ( path.join(__dirname ,  'views' ,"Login.html" ));
+
+ }
+
+
+
+
+
+
  //
   // res.render ( "Register" );
     
 });
+
+app.get('/logout',(req,res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
+
+
 app.get('/postbid', function (req, res) {
     const resu=load.loaditem()
 res.render('BidPost' , {item:resu} )
