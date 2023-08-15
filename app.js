@@ -32,15 +32,20 @@ app.use('/addBid' , bid);
 app.get('/', function (req, res) {
    
     // connect to your database
-  //const resu=load.loaditem()
+  //
  const resu=img.loadImg()
  // console.log("inside")
  //console.log(img.loadImg());
-//res.render('index' , {item:img.loadImg()} )
- //res.render('BidPost' , {item:resu} )
-   res.sendFile ( path.join(__dirname ,  'views' ,"Register.html" ));
+res.render('index' , {item:img.loadImg()} )
+ //
+  // res.render ( "Register" );
     
 });
+app.get('/postbid', function (req, res) {
+    const resu=load.loaditem()
+res.render('BidPost' , {item:resu} )
+});
+
 
 app.get('/bid' , function(req, res,next){
 
@@ -64,10 +69,11 @@ app.get('/login' , function(req, res,next){
 });
 
 
-app.post('/test' , function(req,res,next){
+app.get('/signup' , function(req,res,next){
 
 
-res.send("test");
+res.render("register");
+
 });
 
 

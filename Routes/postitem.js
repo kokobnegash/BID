@@ -15,13 +15,44 @@ var upload=require('express-fileupload');
 
     additem.post('/', function(req, res, next){
     
-      console.log("at post photo")
-      console.log(req.files.file2.data)
+     
+      sql.connect(conf.config, function (err) {
+    
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        var fl=req.files;
+        // query to the database and get the records
+         
+        request.input('category', sql.NVarChar(50),req.body.category );
+        request.input('name', sql.NVarChar(50),req.body.name );
+        request.input('description', sql.NVarChar(50),req.body.Description );
+        request.input('price', sql.NVarChar(50),req.body.InitialPrice );
+        request.input('photo', sql.VarBinary,req.files.file2.data );
+        request.input('enddate', sql.DateTime,req.body.closingdate );
+          // Call the stored procedure
+          const result =  request.execute('add_item');
+    
       
-      //res.send("i am called")
-      add_item(req) ;
+  
+    
+    
+        });
+    });
+    
+    
 
-});
+
+
+
+
+
+
+
+
+
+
+
 async function add_item(req) {
   try {
     const pool = await sql.connect(conf.config);
