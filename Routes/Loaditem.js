@@ -5,7 +5,7 @@
     var sql = require("mssql");
    
     var conf=require('./DBConnection/Connection')   ; 
-    var restest=[]; 
+    //var restest=[]; 
     
    // var test=photopar("<Buffer 75 6e 64 65 66 69 6e 65 64>");
    function loaditem(){

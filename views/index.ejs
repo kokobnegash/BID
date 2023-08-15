@@ -21,18 +21,35 @@
             
 
 </div>
-      
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="<%=photo %>" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title"><%=model %></h5>
-      <h5 class="card-title"><%=price %></h5>
-      <p class="card-text"><%=description %></p>
-      <a href="#" class="btn btn-primary">BID</a>
-   
-    </div>
-  </div>
 
+ <div class="container" style="border: dotted;">
+    <div class="row">
+<% for(let itm in item) {%>
+     
+
+<div class="card" style="width: 18rem;" style="margin: 2%; float: left; ">
+    
+        <%  let pho=item[itm].image  %>
+        <% const imageBase64 = pho.toString('base64') %>
+        <% const dataUri = `data:image/jpeg;base64,${imageBase64}` %>
+
+   <div class="card-body">
+        <% let pr= Number.parseInt(item[itm].InitialPist)  %>
+        
+      <h5 class="card-title"><%=item[itm].Model %></h5>
+      <h5 class="card-title"><%=pr.toLocaleString("en-US") %></h5>
+      <h5 class="card-title"><%=item[itm].Description %></h5>
+      <h5 class="card-title"><%=item[itm].Itemid %></h5>
+     
+      <a href="/bid?itemid=<%=item[itm].Itemid  %>" class="btn btn-primary">BID</a>
+   
+    
+</div>         <img class="card-img-top"  width="400px"  height="200px" src="<%=dataUri %>" alt="Card image cap">
+    
+
+    </div>   <% } %>
+  </div></div>
+</div>
    
 
 <div class="jumbotron">

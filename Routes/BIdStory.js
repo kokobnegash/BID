@@ -8,7 +8,7 @@
     var restest=[]; 
     
    
-   function loadImg(){
+   function bidStory(itmid){
   sql.connect(conf.config, function (err) {
     
     if (err) console.log(err);
@@ -16,7 +16,7 @@
     var request = new sql.Request();
 
     
-     let perinfo = "exec load_items_index ;";
+    let perinfo = "exec Bid_story  @itemid='" + itmid  +     "';";
  
 
     
@@ -26,7 +26,7 @@
 
         }
   
-        var resl=recordset.recordsets[0];
+       
          restest=recordset.recordset;
         
        
@@ -41,11 +41,11 @@
     }); 
 
 });
-//console.log(restest)
+console.log(restest)
 return restest;
 
 
 }
-loadImg();
+//loadImg();
 
-module.exports= {loadImg};
+module.exports= {bidStory};
