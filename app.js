@@ -14,6 +14,9 @@ var add=require('./Routes/postitem')
 var img=require('./Routes/LoadImage')
 var bid=require('./Routes/addBid')
 var bidstory=require('./Routes/BIdStory')
+var seller=require('./Routes/sellerInfo')
+
+
 
 var load=require('./Routes/Loaditem')
 var loadsingle=require('./Routes/LoadSingleitem')
@@ -33,23 +36,24 @@ app.get('/', function (req, res) {
  const resu=img.loadImg()
  // console.log("inside")
  //console.log(img.loadImg());
-res.render('index' , {item:img.loadImg()} )
+//res.render('index' , {item:img.loadImg()} )
  //res.render('BidPost' , {item:resu} )
-   // res.sendFile ( path.join(__dirname ,  'views' ,"Register.html" ));
+   res.sendFile ( path.join(__dirname ,  'views' ,"Register.html" ));
     
 });
 
 app.get('/bid' , function(req, res,next){
 
     var queryData = url.parse(req.url, true).query;
-  console.log(queryData.itemid );
-  //  const resu=loadsingle.loadsingleitem(queryData.itemid)
+  
     const resu=loadsingle.loadImg(queryData.itemid)
     const resu2=bidstory.bidStory(queryData.itemid)
+    const resu3=seller.bidStory(queryData.itemid)
   // res.render('index' , {item:img.loadImg()} )
-console.log(resu[0]);
+  console.log("neweeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee "); 
+  console.log(resu3[0]);
  
-   res.render ('Buyarea' , {item:resu[0]  , item2 : resu2[0]} );
+   res.render ('Buyarea' , {item:resu[0]  , item2 : resu2 , item3 : resu3[0]} );
 
 });
 

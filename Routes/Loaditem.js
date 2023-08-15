@@ -5,18 +5,21 @@
     var sql = require("mssql");
    
     var conf=require('./DBConnection/Connection')   ; 
-    //var restest=[]; 
+ var  restest=[]; 
+    
     
    // var test=photopar("<Buffer 75 6e 64 65 66 69 6e 65 64>");
    function loaditem(){
-  sql.connect(conf.config, function (err) {
+  
+
+  sql.connect(conf.config, function (err ) {
     
     if (err) console.log(err);
     // create Request object
     var request = new sql.Request();
 
     // query to the database and get the records
-     let perinfo = "exec loaditem  @userid='" + 2  +    "';";
+     let perinfo = "exec loaditem  @userid='" + 18  +    "';";
  
 
     //request.query("select * from TblUser", function (err, recordset) {
@@ -26,26 +29,20 @@
 
         }
   
-        var resl=recordset.recordsets[0];
-         restest=recordset.recordset;
-        
-       
-     //  console.log(recordset.recordset)
-       
+       // var resl=recordset.recordsets[0];
+        restest=recordset.recordset;
+    
+      
 
-     // res.render(  'BidPost', {result:resl[0]});
-
-
- 
 
     }); 
-
+  
 });
 //console.log(restest)
-return restest;
 
+  return restest;
 
 }
 
-
+console.log(loaditem ())
 module.exports= {loaditem};

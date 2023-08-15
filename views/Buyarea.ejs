@@ -63,7 +63,7 @@
          <!-- <a href="/addBid?itemid=<%=item.Itemid  %>" class="btn btn-primary">BID</a> -->
         
         </div>
-        <div class="card" style="width: 15rem;" style="margin: 1%; float: left; "> 
+        <div class="card" style="width: 18rem;" style="margin: 1%; float: left; "> 
            
             <label for="sname" class="form-label">BID Log  </label>
 
@@ -71,16 +71,20 @@
             <table class="table"   style="width: 100%;">
                 <thead>
                   <tr>
-                    <th scope="col">Bdate</th>
-                    <th scope="col">amount</th>
+                       <th scope="col">amount</th>
                     
+                    <th scope="col">Bdate</th>
+                 
                   </tr>
                 </thead>
                 <tbody>
+                   
                   <% for(let itm in item2) {%>
+                    
+                    <% let amt= Number.parseInt(item2[itm].Amount)  %>
                  <tr>
-                    <td><%=item[itm].bdate %></td>
-                    <td><%=item[itm].amount %></td>
+                    <td><%=amt.toLocaleString("en-US") %></td>
+                    <td><%=item2[itm].bdate %></td>
                   
                  </tr>
 
@@ -90,10 +94,35 @@
 
 
         </div>
+
+        
+        <div class="card" style="width: 18rem;" style="margin: 1%; float: left; "> 
+            <label for="sname" class="form-label">Seller info </label>
+
+            <%  let phoseler=item3.photo %>
+            <% const photo2 = phoseler.toString('base64') %>
+            <% const dataUri2 = `data:image/jpeg;base64,${photo2}` %>
+     <img class="card-img-top"  width="400px"  height="200px" src="<%=dataUri2 %>" alt="Card image cap">
+        
+       <div class="card-body">
+           
+            
+        name  <h5 class="card-title"><%=item3.fullname %></h5>
+        Email  <h5 class="card-title"><%=item3.Email %></h5>
+        Tele  <h5 class="card-title"><%=item3.Telephone %></h5>
+        
+        
+         
+       
+        
+    </div>        
+    
+
+
     </div>
         </div>
            
-          
+    </div>
            
     </div>
     </div>

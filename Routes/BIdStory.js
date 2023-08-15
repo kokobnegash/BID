@@ -29,11 +29,6 @@
        
          restest=recordset.recordset;
         
-       
-      console.log(recordset.recordset)
-       
-
-     // res.render(  'BidPost', {result:resl[0]});
 
 
  
@@ -41,7 +36,7 @@
     }); 
 
 });
-console.log(restest)
+//console.log(restest)
 return restest;
 
 

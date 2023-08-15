@@ -16,17 +16,44 @@ var upload=require('express-fileupload');
     register.post('/', function(req, res, next){
 
 
-    //  res.render("/regster")
-     executeStoredProcedure(req) ;
-
-});
-async function executeStoredProcedure(req) {
+      sql.connect(conf.config, function (err) {
+    
+        if (err) console.log(err);
+        // create Request object
+        var request = new sql.Request();
+        var fl=req.files;
+        // query to the database and get the records
+         
+         request.input('fname', sql.NVarChar(50),req.body.fname );
+         request.input('mname', sql.NVarChar(50),req.body.mname );
+         request.input('lname', sql.NVarChar(50),req.body.lname );
+         request.input('email', sql.NVarChar(50),req.body.email );
+         request.input('street', sql.NVarChar(50),req.body.street );
+         request.input('tel', sql.NVarChar(50),req.body.tel );
+         request.input('username', sql.NVarChar(50),req.body.username );
+         request.input('password', sql.NVarChar(50),req.body.password );
+         request.input('type', sql.Int,req.body.type );
+         request.input('photo', sql.VarBinary,fl.file.data );
+      
+          // Call the stored procedure
+          const result =  request.execute('reg_user');
+    
+      
+  
+    
+    
+        });
+    });
+    
+    
+    
+ function regsister(req) {
   try {
-    const pool = await sql.connect(conf.config);
+    const pool =  sql.connect(conf.config);
 
     
     // Create a request object
-    const request = pool.request();
+    const request =new  pool.request();
     var fl=req.files;
   
    request.input('fname', sql.NVarChar(50),req.body.fname );
@@ -41,7 +68,7 @@ async function executeStoredProcedure(req) {
    request.input('photo', sql.VarBinary,fl.file.data );
 
     // Call the stored procedure
-    const result = await request.execute('reg_user');
+    const result =  request.execute('reg_user');
 
     console.log('Data Saved', result);
   } catch (err) {
@@ -50,6 +77,10 @@ async function executeStoredProcedure(req) {
     // Close the connection pool
     sql.close();
   }
+
+
+
+
 }
 
 
