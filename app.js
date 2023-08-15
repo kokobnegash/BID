@@ -10,9 +10,9 @@ var url = require('url');
 var conf=require('./DBConnection/Connection')
 var login=require('./DBConnection/auth')
 var reg=require('./Routes/Register')
-var add=require('./Routes/postitem')
+var add=require('./Routes/Bidpost')
 var img=require('./Routes/Index')
-var bid=require('./Routes/addBid')
+var bid=require('./Routes/Buyarea')
 
 var bidstory=require('./Routes/BIdStory')
 var seller=require('./Routes/sellerInfo')
@@ -34,8 +34,8 @@ var loadsingle=require('./Routes/LoadSingleitem')
 
 app.use('/Register' , reg);
 app.use('/auth' , login);
-app.use('/postitem' , add);
-app.use('/addBid' , bid);
+app.use('/Bidpost' , add);
+app.use('/Buyarea' , bid);
 
 
     var sql = require("mssql");
@@ -77,8 +77,19 @@ app.get('/logout',(req,res) => {
 
 
 app.get('/postbid', function (req, res) {
-    const resu=load.loaditem()
+
+    session=req.session;
+    if(session.userid){
+  const resu=load.loaditem()
 res.render('BidPost' , {item:resu} )
+    }
+    else{
+        res.sendFile ( path.join(__dirname ,  'views' ,"Login.html" ));
+
+    }
+
+
+  
 });
 
 
@@ -90,10 +101,21 @@ app.get('/bid' , function(req, res,next){
     const resu2=bidstory.bidStory(queryData.itemid)
     const resu3=seller.bidStory(queryData.itemid)
   // res.render('index' , {item:img.loadImg()} )
-  console.log("neweeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee "); 
-  console.log(resu3[0]);
+  session=req.session;
+  if(session.userid){
+
+
+res.render ('Buyarea' , {item:resu[0]  , item2 : resu2 , item3 : resu3[0]} );
+
+  }
+
+  else {
+
+    res.sendFile ( path.join(__dirname ,  'views' ,"Login.html" ));
+
+  }
  
-   res.render ('Buyarea' , {item:resu[0]  , item2 : resu2 , item3 : resu3[0]} );
+   
 
 });
 
